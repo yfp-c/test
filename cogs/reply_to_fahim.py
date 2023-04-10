@@ -9,7 +9,7 @@ import asyncio
 class fahim_reply(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._cd = commands.CooldownMapping.from_cooldown(1, 259200.0, commands.BucketType.member) # Change accordingly
+        self._cd = commands.CooldownMapping.from_cooldown(1, 604800.0, commands.BucketType.member) # Change accordingly
                                                         # rate, per, BucketType
     
 

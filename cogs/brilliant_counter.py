@@ -11,7 +11,7 @@ class brilliant_count(commands.Cog):
     async def on_message(self, message):
         if message.author == self.bot.user:
             return
-        if (message.content.lower() == "brilliant") or (message.content.lower() == "brilliant!"):
+        if "brilliant" in message.content.lower():
             # Get the processed message IDs for the user
             user_messages = processed_messages.get(message.author.id, {})
 

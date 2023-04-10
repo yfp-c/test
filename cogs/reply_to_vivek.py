@@ -9,7 +9,7 @@ import asyncio
 class vivek_reply(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._cd = commands.CooldownMapping.from_cooldown(1, 86400.0, commands.BucketType.member) # Change accordingly
+        self._cd = commands.CooldownMapping.from_cooldown(1, 3600.0, commands.BucketType.member) # Change accordingly
                                                         # rate, per, BucketType
     
 
@@ -22,6 +22,7 @@ class vivek_reply(commands.Cog):
     async def on_message(self, message):
         if message.author == self.bot.user:
             return
+        # if message.author.id == 155736840387821569:
         if message.author.id == 390000183657758720:
             retry_after = self.ratelimit_check(message)
             if retry_after is None:

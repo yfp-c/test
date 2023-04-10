@@ -1,24 +1,21 @@
 import discord
 from discord.ext import commands
-from curses.panel import bottom_panel
 
-vivek = ['vivek', 'viveek', 'viveeek', 'viveeeek', 'viveeeeek',
-'viveeeeeek', 'viveeeeeeek', 'viveeeeeeeek', 'viveeeeeeeeek', 'viveeeeeeeeeek',
-'viveeeeeeeeeeek', 'viveeeeeeeeeeeek', 'viveeeeeeeeeeeeek', 'viveeeeeeeeeeeeeek',
-'viveeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeek',
-'viveeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeek',
-'viveeeeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeeeeek',
-'viveeeeeeeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeeeeeeeeek',
-'vivek!', 'viveek!', 'viveeek!', 'viveeeek!', 'viveeeeek!', 'viveeeeeek!', 'viveeeeeeek!', 'viveeeeeeeek!', 'viveeeeeeeeek!', 'viveeeeeeeeeek!',
-'viveeeeeeeeeeek!', 'viveeeeeeeeeeeek!', 'viveeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeek!',
-'viveeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeeeek!',
-'viveeeeeeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeeeeeeeek!']
+def generate_vivek_variations():
+    # Generate all possible variations of 'vivek' with different number of e's.
+    variations = []
+    for i in range(1, 28):
+        variations.append(f"viv{'e' * i}k")
+        variations.append(f"viv{'e' * i}k!")
+    return variations
 
-class viveeeeek(commands.Cog):
+vivek_variations = generate_vivek_variations()
+
+class Vivek(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self._cd = commands.CooldownMapping.from_cooldown(1, 60.0, commands.BucketType.member) # Change accordingly
-    
+        self._cd = commands.CooldownMapping.from_cooldown(1, 60.0, commands.BucketType.member)
+
     def ratelimit_check(self, message):
         """Returns the ratelimit left"""
         bucket = self._cd.get_bucket(message)
@@ -28,8 +25,9 @@ class viveeeeek(commands.Cog):
     async def on_message(self, message):
         if message.author == self.bot.user:
             return
-        msg = message.content.lower()         
-        if any(word in msg for word in vivek):
+
+        msg = message.content.lower()
+        if any(word in msg for word in vivek_variations):
             retry_after = self.ratelimit_check(message)
             if retry_after is None:
                 await message.channel.send("Viveeeeeeeeeeeeeeeeeek!")
@@ -38,4 +36,47 @@ class viveeeeek(commands.Cog):
                 return
 
 async def setup(bot):
-    await bot.add_cog(viveeeeek(bot))
+    await bot.add_cog(Vivek(bot))
+
+# old
+# import discord
+# from discord.ext import commands
+# from curses.panel import bottom_panel
+
+# vivek = ['vivek', 'viveek', 'viveeek', 'viveeeek', 'viveeeeek',
+# 'viveeeeeek', 'viveeeeeeek', 'viveeeeeeeek', 'viveeeeeeeeek', 'viveeeeeeeeeek',
+# 'viveeeeeeeeeeek', 'viveeeeeeeeeeeek', 'viveeeeeeeeeeeeek', 'viveeeeeeeeeeeeeek',
+# 'viveeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeek',
+# 'viveeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeek',
+# 'viveeeeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeeeeek',
+# 'viveeeeeeeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeeeeeeeek', 'viveeeeeeeeeeeeeeeeeeeeeeeeeeek',
+# 'vivek!', 'viveek!', 'viveeek!', 'viveeeek!', 'viveeeeek!', 'viveeeeeek!', 'viveeeeeeek!', 'viveeeeeeeek!', 'viveeeeeeeeek!', 'viveeeeeeeeeek!',
+# 'viveeeeeeeeeeek!', 'viveeeeeeeeeeeek!', 'viveeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeek!',
+# 'viveeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeeeek!',
+# 'viveeeeeeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeeeeeeek!', 'viveeeeeeeeeeeeeeeeeeeeeeeeeeek!']
+
+# class viveeeeek(commands.Cog):
+#     def __init__(self, bot):
+#         self.bot = bot
+#         self._cd = commands.CooldownMapping.from_cooldown(1, 60.0, commands.BucketType.member) # Change accordingly
+    
+#     def ratelimit_check(self, message):
+#         """Returns the ratelimit left"""
+#         bucket = self._cd.get_bucket(message)
+#         return bucket.update_rate_limit()
+
+#     @commands.Cog.listener()
+#     async def on_message(self, message):
+#         if message.author == self.bot.user:
+#             return
+#         msg = message.content.lower()         
+#         if any(word in msg for word in vivek):
+#             retry_after = self.ratelimit_check(message)
+#             if retry_after is None:
+#                 await message.channel.send("Viveeeeeeeeeeeeeeeeeek!")
+#                 await self.bot.process_commands(message)
+#             else:
+#                 return
+
+# async def setup(bot):
+#     await bot.add_cog(viveeeeek(bot))
